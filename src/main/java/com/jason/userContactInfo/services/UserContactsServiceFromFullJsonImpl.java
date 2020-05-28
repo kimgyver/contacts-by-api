@@ -1,10 +1,8 @@
 package com.jason.userContactInfo.services;
 
 import com.jason.userContactInfo.models.UserContact;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Primary
-public class UserContactsServiceUsingFullJsonImpl implements UserContactsService {
+public class UserContactsServiceFromFullJsonImpl implements UserContactsService {
 
     private static final String SERVER_URL = "https://jsonplaceholder.typicode.com/users";
 
@@ -22,6 +19,8 @@ public class UserContactsServiceUsingFullJsonImpl implements UserContactsService
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<UserContact[]> response = restTemplate.getForEntity(SERVER_URL, UserContact[].class);
+
+            // do searching
             for (UserContact userContact: response.getBody()) {
                 if (userContact.getId().equals(id)) {
                     result = userContact;
@@ -47,11 +46,12 @@ public class UserContactsServiceUsingFullJsonImpl implements UserContactsService
 
 
     public UserContact[] findByName(String name) {
-        String url = SERVER_URL + "/users?username=" + name;
         UserContact[] results;    // result should be array
         try {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<UserContact[]> response = restTemplate.getForEntity(SERVER_URL, UserContact[].class);
+
+            // do searching
             List<UserContact> resultContactsList = new ArrayList<>();
             for (UserContact userContact: response.getBody()) {
                 if (userContact.getUsername().equals(name)) {

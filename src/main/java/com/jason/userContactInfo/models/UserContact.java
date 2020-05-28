@@ -4,6 +4,7 @@ public class UserContact {
     private String id;
     private String email;
     private String phone;
+    private String username;
 
     public String getId() {
         return id;
@@ -29,12 +30,21 @@ public class UserContact {
         this.phone = phone;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "UserContact{" +
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
